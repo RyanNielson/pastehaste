@@ -80,16 +80,22 @@ const GeneratedUrl = styled.input.attrs({ type: 'text', spellcheck: false, readO
 const App: React.FC = () => {
   const [code, setCode] = useState("puts 'Hello, world!'");
   const [url, setUrl] = useState('');
-  // const urlInputRef = useRef(null);
+  const urlInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     console.log(window.location);
     setUrl(`${window.location.origin}/${Base64.encodeURI(code)}`);
   }, [code]);
 
-  // const copyUrlToClipboard = e => {
-  //   urlInputRef.current.select();
-  // };
+  const copyUrlToClipboard = (): void => {
+    const node = urlInputRef.current;
+
+    if (node) {
+      node.select();
+      document.execCommand('copy');
+      // e.target.focus();
+    }
+  };
 
   return (
     <>
@@ -97,8 +103,8 @@ const App: React.FC = () => {
       <Bar>
         <span>pastehaste</span>
         <UrlArea>
-          <GeneratedUrl value={url} />
-          <CopyUrlButton>copy url</CopyUrlButton>
+          <GeneratedUrl ref={urlInputRef} value={url} />
+          <CopyUrlButton onClick={copyUrlToClipboard}>copy url</CopyUrlButton>
         </UrlArea>
       </Bar>
       <Wrapper>
