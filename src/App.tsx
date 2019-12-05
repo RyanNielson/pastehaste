@@ -82,13 +82,13 @@ const GeneratedUrl = styled.input.attrs({ type: 'text', spellcheck: 'false', rea
 `;
 
 const App: React.FC = () => {
-  const [code, setCode] = useState("puts 'Hello, world!'");
+  const [code, setCode] = useState(Base64.decode(window.location.hash.substring(1)) || "puts 'Hello, world!'");
   const [url, setUrl] = useState('');
   const urlInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // TODO: Might be able to improve this using compression like https://www.npmjs.com/package/lz-string
-    setUrl(`${window.location.origin}/${Base64.encodeURI(code)}`);
+    setUrl(`${window.location.origin}#${Base64.encodeURI(code)}`);
   }, [code]);
 
   const copyUrlToClipboard = (): void => {
