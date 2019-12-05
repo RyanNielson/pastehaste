@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { Base64 } from 'js-base64';
 
-const Wrapper = styled.div.attrs({ spellcheck: false })`
+const Wrapper = styled.div`
   position: absolute;
   top: 2em;
   left: 0;
@@ -34,6 +34,8 @@ const HighlightedText = styled(SyntaxHighlighter)`
   height: 100%;
   padding: 0.5em;
   line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
 `;
 
 const Bar = styled.div`
@@ -64,7 +66,7 @@ const CopyUrlButton = styled.button`
   padding: 0;
 `;
 
-const GeneratedUrl = styled.input.attrs({ type: 'text', spellcheck: false, readOnly: true })`
+const GeneratedUrl = styled.input.attrs({ type: 'text', spellcheck: 'false', readOnly: true })`
   appearance: none;
   background: none;
   border: none;
@@ -75,6 +77,8 @@ const GeneratedUrl = styled.input.attrs({ type: 'text', spellcheck: false, readO
   padding: 0 0.5em;
   color: #ffffff;
   max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const App: React.FC = () => {
@@ -83,17 +87,16 @@ const App: React.FC = () => {
   const urlInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    console.log(window.location);
+    // TODO: Might be able to improve this using compression like https://www.npmjs.com/package/lz-string
     setUrl(`${window.location.origin}/${Base64.encodeURI(code)}`);
   }, [code]);
 
   const copyUrlToClipboard = (): void => {
-    const node = urlInputRef.current;
+    const urlInput = urlInputRef.current;
 
-    if (node) {
-      node.select();
+    if (urlInput) {
+      urlInput.select();
       document.execCommand('copy');
-      // e.target.focus();
     }
   };
 
@@ -103,12 +106,12 @@ const App: React.FC = () => {
       <Bar>
         <span>pastehaste</span>
         <UrlArea>
-          <GeneratedUrl ref={urlInputRef} value={url} />
+          <GeneratedUrl ref={urlInputRef} value={url} spellCheck={false} />
           <CopyUrlButton onClick={copyUrlToClipboard}>copy url</CopyUrlButton>
         </UrlArea>
       </Bar>
       <Wrapper>
-        <TextArea value={code} onChange={(e): void => setCode(e.currentTarget.value)} />
+        <TextArea value={code} onChange={(e): void => setCode(e.currentTarget.value)} spellCheck={false} />
         <HighlightedText language="ruby">{code}</HighlightedText>
       </Wrapper>
     </>
