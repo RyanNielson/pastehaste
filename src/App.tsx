@@ -19,14 +19,14 @@ const App: React.FC = () => {
     // TODO: Might be able to improve this using compression like https://www.npmjs.com/package/lz-string
     // TODO: Stringify might be slow here and result in lag, profile this.
     setUrl(code ? `${window.location.origin}#${Base64.encodeURI(JSON.stringify(data))}` : '');
-  }, [code]);
+  }, [code, language]);
 
   useEffect(() => {
     const hash = Base64.decode(window.location.hash.substring(1));
     if (hash) {
-      const data = JSON.parse(hash);
-      setCode(data.code);
-      setLanguage(data.language);
+      const { code, language } = JSON.parse(hash);
+      setCode(code);
+      setLanguage(language);
     }
   }, []);
 
