@@ -84,6 +84,7 @@ const GeneratedUrl = styled.input.attrs({ type: 'text', spellcheck: 'false', rea
 const LanguageSelect = styled.select`
   margin: 0 0.5em;
   padding: 0 0.5em;
+  flex: 1;
   // appearance: none;
   border: 0;
 `;
