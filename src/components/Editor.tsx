@@ -14,6 +14,7 @@ const Editor: React.FC<Props> = ({ code, language, onCodeChange }) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   // Resize editor when code changes to make sure textarea doesn't have any scrollbars.
+  // TODO: We also want to do this on window resize to fix some edge cases.
   useEffect((): void => {
     const textAreaInput = textAreaRef.current;
     const wrapperDiv = wrapperRef.current;
@@ -56,6 +57,7 @@ const Wrapper = styled.div`
   position: relative;
   height: 100%;
   overflow: hidden;
+  margin-top: 2em;
 `;
 
 // TODO: Clean up these wrappers, this one might not be needed.

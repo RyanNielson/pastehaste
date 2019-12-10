@@ -47,6 +47,10 @@ const Bar = styled.div`
   background-color: #4a5568;
   display: flex;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
 `;
 
 const UrlArea = styled.span`
