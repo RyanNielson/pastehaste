@@ -51,6 +51,7 @@ const Bar = styled.div`
   top: 0;
   width: 100%;
   z-index: 100;
+  overflow: hidden;
 `;
 
 const UrlArea = styled.span`
