@@ -20,23 +20,36 @@ const TopBar: React.FC<Props> = ({ language, onLanguageChange, url }) => {
   };
 
   return (
-    <Bar>
-      <span>pastehaste</span>
-      <LanguageSelect value={language} onChange={(e): void => onLanguageChange(e.target.value)}>
-        <option value="text">text</option>
-        {supportedLanguages.map(lang => (
-          <option key={lang} value={lang}>
-            {lang}
-          </option>
-        ))}
-      </LanguageSelect>
-      <UrlArea>
-        <GeneratedUrl ref={urlInputRef} value={url} spellCheck={false} />
-        <CopyUrlButton onClick={copyUrlToClipboard}>copy url</CopyUrlButton>
-      </UrlArea>
-    </Bar>
+    <BarContainer>
+      <Bar>
+        <span>pastehaste</span>
+        <LanguageSelect value={language} onChange={(e): void => onLanguageChange(e.target.value)}>
+          <option value="text">text</option>
+          {supportedLanguages.map(lang => (
+            <option key={lang} value={lang}>
+              {lang}
+            </option>
+          ))}
+        </LanguageSelect>
+      </Bar>
+      <Bar>
+        <UrlArea>
+          <GeneratedUrl ref={urlInputRef} value={url} spellCheck={false} />
+          <CopyUrlButton onClick={copyUrlToClipboard}>copy url</CopyUrlButton>
+        </UrlArea>
+      </Bar>
+    </BarContainer>
   );
 };
+
+const BarContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  top: 0;
+  width: 100%;
+  position: fixed;
+`;
 
 const Bar = styled.div`
   color: #ffffff;
@@ -47,10 +60,10 @@ const Bar = styled.div`
   background-color: #4a5568;
   display: flex;
   justify-content: space-between;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 100;
+  // position: fixed;
+  // top: 0;
+  // width: 100%;
+  // z-index: 100;
   overflow: hidden;
 `;
 
@@ -79,17 +92,19 @@ const GeneratedUrl = styled.input.attrs({ type: 'text', spellcheck: 'false', rea
   outline: none;
   flex: 1;
   text-align: right;
-  padding: 0 0.5em;
+  // padding: 0 0.5em;
+  padding: 0 0.5em 0 0;
   color: #ffffff;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: left;
 `;
 
 const LanguageSelect = styled.select`
-  margin: 0 0.5em;
+  margin: 0 0 0 0.5em;
   padding: 0 0.5em;
-  flex: 1;
+  // flex: 0.5;
   // appearance: none;
   border: 0;
 `;

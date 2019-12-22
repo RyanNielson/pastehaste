@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
@@ -16,6 +16,7 @@ const Editor: React.FC<Props> = ({ code, language, onCodeChange }) => {
   const [width, height] = useWindowSize();
 
   useEffect((): void => {
+    console.log('RESIZE');
     const textAreaInput = textAreaRef.current;
     const wrapperDiv = wrapperRef.current;
 
@@ -44,7 +45,7 @@ const Wrapper = styled.div`
   position: relative;
   height: 100%;
   overflow: hidden;
-  margin-top: 2em;
+  margin-top: 4em;
 `;
 
 const TextArea = styled.textarea`
